@@ -3,12 +3,14 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import abaya from "@/src/assets/abaya.jpg";
+import abaya from "@/src/assets/abaya3.png";
 import { CheckCircle2, RotateCcw, Ruler } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 
 interface Measurement {
+  neckWidth:string,
+  shoulderWidth:string,
   sleevesWidth: string;
   bust: string;
   waist: string;
@@ -45,7 +47,7 @@ const MeasurementInput = ({
         value={value}
         onChange={onChange}
         placeholder="0"
-        className="w-12 h-7 sm:w-16 sm:h-8 text-center text-xs border-blue-100 focus-visible:ring-blue-400 bg-white/95 shadow-md rounded-t-none p-1"
+        className="w-10 h-7 sm:w-16 sm:h-8 text-center text-xs border-blue-100 focus-visible:ring-blue-400 bg-white/95 shadow-md rounded-t-none p-1"
       />
     </div>
   </div>
@@ -53,14 +55,16 @@ const MeasurementInput = ({
 
 const AbayaMeasurementForm = () => {
   const [measurements, setMeasurements] = useState<Measurement>({
+    neckWidth:"",
+    shoulderWidth:"",
+    sleevesFromNeck: "",
+    arms: "",
     sleevesWidth: "",
     bust: "",
     waist: "",
     hip: "",
     itemLength: "",
     sleevesFromShoulder: "",
-    sleevesFromNeck: "",
-    arms: "",
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,15 +80,30 @@ const AbayaMeasurementForm = () => {
     <div className="min-h-screen bg-slate-50 p-2 md:p-8 lg:p-12 overflow-auto">
       <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 p-4 md:p-8 bg-slate-50 min-h-screen">
         <div className="w-full lg:flex-1 order-2 lg:order-1">
-          <div className="bg-white p-2 sm:p-4 rounded-3xl shadow-xl border border-slate-200">
+          <div className="bg-white p-4 sm:p-4 rounded-3xl shadow-xl border border-slate-200">
             <div className="relative overflow-x-auto pb-4">
               <div className="inline-block min-w-[500px] lg:w-full rounded-2xl border border-slate-100">
-                <div className="relative">
+                <div className="relative mt-5">
                   <Image
                     src={abaya}
                     alt="Abaya Measurement Guide"
                     className="w-full h-auto object-contain"
                     priority
+                  />
+
+                  <MeasurementInput
+                    label="Neck"
+                    name="neckWidth"
+                    value={measurements.neckWidth}
+                    onChange={handleChange}
+                    className="-top-[2.3%] right-[57%]"
+                  />
+                  <MeasurementInput
+                    label="shoulder"
+                    name="shoulderWidth"
+                    value={measurements.shoulderWidth}
+                    onChange={handleChange}
+                    className="top-[8%] left-[24%]"
                   />
 
                   <MeasurementInput
@@ -95,7 +114,7 @@ const AbayaMeasurementForm = () => {
                     className="top-[16%] right-[3%]"
                   />
                   <MeasurementInput
-                    label="Neck"
+                    label="Sleece Form Neck"
                     name="sleevesFromNeck"
                     value={measurements.sleevesFromNeck}
                     onChange={handleChange}
@@ -155,8 +174,8 @@ const AbayaMeasurementForm = () => {
 
         {/* RIGHT COLUMN: The Data Panel */}
         <div className="w-full lg:w-[400px] flex flex-col gap-6 order-1 lg:order-2 sticky lg:top-8 overflow-hidden">
-          <div className="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-200">
-            <div className="flex items-center justify-between mb-6">
+          <div className="bg-white p-4 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
+            <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
                 <div className="p-2 bg-blue-50 rounded-lg">
                   <Ruler className="w-5 h-5 text-blue-600" />
@@ -195,7 +214,7 @@ const AbayaMeasurementForm = () => {
               below.
             </p>
 
-            <div className="grid grid-cols-2 gap-x-6 gap-y-4 max-h-[40vh] lg:max-h-none overflow-y-auto pr-2">
+            <div className="grid grid-cols-2 gap-x-6 gap-y-2 sm:gap-y-4 max-h-[40vh] lg:max-h-none overflow-y-auto pr-2">
               {Object.entries(measurements).map(([key, value]) => (
                 <div
                   key={key}
