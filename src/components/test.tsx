@@ -17,7 +17,7 @@ interface Measurement {
   hip: string;
   itemLength: string;
   sleevesFromShoulder: string;
-  sleevesFromNeck: string;
+  // sleevesFromNeck: string;
   arms: string;
 }
 
@@ -57,7 +57,7 @@ const AbayaMeasurementForm = () => {
   const [measurements, setMeasurements] = useState<Measurement>({
     neckWidth:"",
     shoulderWidth:"",
-    sleevesFromNeck: "",
+    // sleevesFromNeck: "",
     arms: "",
     sleevesWidth: "",
     bust: "",
@@ -96,7 +96,7 @@ const AbayaMeasurementForm = () => {
                     name="neckWidth"
                     value={measurements.neckWidth}
                     onChange={handleChange}
-                    className="-top-[2.3%] right-[57%]"
+                    className="-top-[2.7%] sm:top[0%] md:top[5%] right-[57%]"
                   />
                   <MeasurementInput
                     label="shoulder"
@@ -113,19 +113,19 @@ const AbayaMeasurementForm = () => {
                     onChange={handleChange}
                     className="top-[16%] right-[3%]"
                   />
-                  <MeasurementInput
+                  {/* <MeasurementInput
                     label="Sleece Form Neck"
                     name="sleevesFromNeck"
                     value={measurements.sleevesFromNeck}
                     onChange={handleChange}
                     className="top-[8%] right-[25%]"
-                  />
+                  /> */}
                   <MeasurementInput
                     label="Arms"
                     name="arms"
                     value={measurements.arms}
                     onChange={handleChange}
-                    className="top-[9%] right-[44%]"
+                    className="top-[10%] right-[43%]"
                   />
                   <MeasurementInput
                     label="Bust"
@@ -190,13 +190,15 @@ const AbayaMeasurementForm = () => {
                 size="sm"
                 onClick={() =>
                   setMeasurements({
+                    neckWidth:"",
+                    shoulderWidth:"",
                     sleevesWidth: "",
                     bust: "",
                     waist: "",
                     hip: "",
                     itemLength: "",
                     sleevesFromShoulder: "",
-                    sleevesFromNeck: "",
+                    // sleevesFromNeck: "",
                     arms: "",
                   })
                 }
