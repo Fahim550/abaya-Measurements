@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import abaya from "@/src/assets/abaya3.png";
+import abaya from "@/src/assets/abaya5.png";
 import { CheckCircle2, RotateCcw, Ruler } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
@@ -22,13 +22,13 @@ interface Measurement {
 }
 
 const MeasurementInput = ({
-  label,
+  // label,
   name,
   value,
   onChange,
   className,
 }: {
-  label: string;
+  // label: string;
   name: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -38,16 +38,16 @@ const MeasurementInput = ({
     className={`absolute group transition-all duration-300 hover:z-10 ${className}`}
   >
     <div className="flex flex-col items-center">
-      <span className="bg-white/95 backdrop-blur-sm px-1 rounded-t text-[9px] sm:text-[10px] font-bold text-blue-600 uppercase tracking-tighter border border-blue-100 shadow-sm">
+      {/* <span className="bg-white/95 backdrop-blur-sm px-1 rounded-t text-[9px] sm:text-[10px] font-bold text-blue-600 uppercase tracking-tighter border border-blue-100 shadow-sm">
         {label}
-      </span>
+      </span> */}
       <Input
         type="number"
         name={name}
         value={value}
         onChange={onChange}
         placeholder="0"
-        className="w-10 h-7 sm:w-16 sm:h-8 text-center text-xs border-blue-100 focus-visible:ring-blue-400 bg-white/95 shadow-md rounded-t-none p-1"
+        className="w-10 h-7 sm:w-16 sm:h-8 text-center text-xs border-blue-400 focus-visible:ring-blue-400 bg-white/95 shadow-md rounded-t-none p-1"
       />
     </div>
   </div>
@@ -92,26 +92,26 @@ const AbayaMeasurementForm = () => {
                   />
 
                   <MeasurementInput
-                    label="Neck"
+                    // label="Neck"
                     name="neckWidth"
                     value={measurements.neckWidth}
                     onChange={handleChange}
-                    className="-top-[2.7%] sm:top[0%] md:top[5%] right-[57%]"
+                    className="-top-[2%] sm:top[0%] md:top[5%] right-[57%]"
                   />
                   <MeasurementInput
-                    label="shoulder"
+                    // label="shoulder"
                     name="shoulderWidth"
                     value={measurements.shoulderWidth}
                     onChange={handleChange}
-                    className="top-[8%] left-[24%]"
+                    className="top-[6.5%] left-[12%]"
                   />
 
                   <MeasurementInput
-                    label="Cuff"
+                    // label="Cuff"
                     name="sleevesWidth"
                     value={measurements.sleevesWidth}
                     onChange={handleChange}
-                    className="top-[16%] right-[3%]"
+                    className="top-[51%] left-[3%]"
                   />
                   {/* <MeasurementInput
                     label="Sleece Form Neck"
@@ -121,46 +121,46 @@ const AbayaMeasurementForm = () => {
                     className="top-[8%] right-[25%]"
                   /> */}
                   <MeasurementInput
-                    label="Arms"
+                    // label="Arms"
                     name="arms"
                     value={measurements.arms}
                     onChange={handleChange}
-                    className="top-[10%] right-[43%]"
+                    className="top-[11%] right-[44%]"
                   />
                   <MeasurementInput
-                    label="Bust"
+                    // label="Bust"
                     name="bust"
                     value={measurements.bust}
                     onChange={handleChange}
-                    className="top-[22%] right-[48%]"
+                    className="top-[21%] right-[38%]"
                   />
                   <MeasurementInput
-                    label="Waist"
+                    // label="Waist"
                     name="waist"
                     value={measurements.waist}
                     onChange={handleChange}
-                    className="top-[30%] right-[48%]"
+                    className="top-[34%] right-[34%]"
                   />
                   <MeasurementInput
-                    label="Hip"
+                    // label="Hip"
                     name="hip"
                     value={measurements.hip}
                     onChange={handleChange}
-                    className="top-[41%] right-[43%]"
+                    className="top-[45%] right-[32%]"
                   />
                   <MeasurementInput
-                    label="Sleeve"
+                    // label="Sleeve"
                     name="sleevesFromShoulder"
                     value={measurements.sleevesFromShoulder}
                     onChange={handleChange}
-                    className="top-[20%] left-[8%]"
+                    className="top-[19.5%] left-[6%]"
                   />
                   <MeasurementInput
-                    label="Length"
+                    // label="Length"
                     name="itemLength"
                     value={measurements.itemLength}
                     onChange={handleChange}
-                    className="bottom-[35%] left-[39%]"
+                    className="bottom-[22%] left-[23%]"
                   />
                 </div>
               </div>
