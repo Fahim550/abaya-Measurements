@@ -103,7 +103,7 @@ const AbayaMeasurementForm = () => {
                     name="shoulderWidth"
                     value={measurements.shoulderWidth}
                     onChange={handleChange}
-                    className="top-[6.5%] left-[12%]"
+                    className="top-[6.5%] left-[11%]"
                   />
 
                   <MeasurementInput
@@ -132,7 +132,7 @@ const AbayaMeasurementForm = () => {
                     name="bust"
                     value={measurements.bust}
                     onChange={handleChange}
-                    className="top-[21%] right-[38%]"
+                    className="top-[21%] right-[36%]"
                   />
                   <MeasurementInput
                     // label="Waist"
@@ -153,14 +153,14 @@ const AbayaMeasurementForm = () => {
                     name="sleevesFromShoulder"
                     value={measurements.sleevesFromShoulder}
                     onChange={handleChange}
-                    className="top-[19.5%] left-[6%]"
+                    className="top-[19.5%] left-[5.5%]"
                   />
                   <MeasurementInput
                     // label="Length"
                     name="itemLength"
                     value={measurements.itemLength}
                     onChange={handleChange}
-                    className="bottom-[22%] left-[23%]"
+                    className="bottom-[37%] left-[18%]"
                   />
                 </div>
               </div>
