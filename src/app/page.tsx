@@ -1,4 +1,4 @@
-import Test from "../components/test";
+import Test from "../components/abayaCard";
 
 export default function Home() {
   return (
