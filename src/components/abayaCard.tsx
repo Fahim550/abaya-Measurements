@@ -3,320 +3,343 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import abaya from "@/src/assets/abaya5.png";
+import abaya from "@/src/assets/abaya52.png";
 import logo from "@/src/assets/logo.jpeg";
 import { CheckCircle2, RotateCcw, Ruler } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
-
+import toast from "react-hot-toast";
 
 interface Measurement {
-name: string;
-phone: string;
-neckWidth: string;
-shoulderWidth: string;
-sleevesWidth: string;
-bust: string;
-waist: string;
-hip: string;
-itemLength: string;
-sleevesFromShoulder: string;
-// sleevesFromNeck: string;
-arms: string;
+  name: string;
+  phone: string;
+  code: string;
+  neckWidth: string;
+  shoulderWidth: string;
+  sleevesWidth: string;
+  bust: string;
+  waist: string;
+  hip: string;
+  itemLength: string;
+  sleevesFromShoulder: string;
+  // sleevesFromNeck: string;
+  arms: string;
 }
 
 const MeasurementInput = ({
-// label,
-name,
-value,
-onChange,
-className,
+  // label,
+  name,
+  value,
+  onChange,
+  className,
 }: {
-// label: string;
-name: string;
-value: string;
-onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-className: string;
+  // label: string;
+  name: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  className: string;
 }) => (
-<div
-className={`absolute group transition-all duration-300 hover:z-10 ${className}`}
->
-<div className="flex flex-col items-center">
-{/* <span className="bg-white/95 backdrop-blur-sm px-1 rounded-t text-[9px] sm:text-[10px] font-bold text-blue-600 uppercase tracking-tighter border border-blue-100 shadow-sm">
+  <div
+    className={`absolute group transition-all duration-300 hover:z-10 ${className}`}
+  >
+    <div className="flex flex-col items-center">
+      {/* <span className="bg-white/95 backdrop-blur-sm px-1 rounded-t text-[9px] sm:text-[10px] font-bold text-blue-600 uppercase tracking-tighter border border-blue-100 shadow-sm">
 {label}
 </span> */}
-<Input
-type="number"
-name={name}
-value={value}
-onChange={onChange}
-placeholder="0"
-className="w-10 h-7 sm:w-16 sm:h-8 text-center text-xs border-blue-400 focus-visible:ring-blue-400 bg-white/95 shadow-md rounded-t-none p-1"
-/>
-</div>
-</div>
+      <Input
+        type="number"
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder="0"
+        className="w-10 h-7 sm:w-16 sm:h-8 text-center text-xs border-blue-400 focus-visible:ring-blue-400 bg-white/95 shadow-md rounded-t-none p-1"
+      />
+    </div>
+  </div>
 );
 
 const AbayaMeasurementForm = () => {
-const [measurements, setMeasurements] = useState<Measurement>({
-name: "",
-phone: "",
-neckWidth: "",
-shoulderWidth: "",
-// sleevesFromNeck: "",
-arms: "",
-sleevesWidth: "",
-bust: "",
-waist: "",
-hip: "",
-itemLength: "",
-sleevesFromShoulder: "",
-});
+  const [measurements, setMeasurements] = useState<Measurement>({
+    name: "",
+    phone: "",
+    code: "",
+    neckWidth: "",
+    shoulderWidth: "",
+    // sleevesFromNeck: "",
+    arms: "",
+    sleevesWidth: "",
+    bust: "",
+    waist: "",
+    hip: "",
+    itemLength: "",
+    sleevesFromShoulder: "",
+  });
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-const { name, value } = e.target;
-setMeasurements((prev) => ({ ...prev, [name]: value }));
-};
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setMeasurements((prev) => ({ ...prev, [name]: value }));
+  };
 
-const handleSave = async () => {
-console.log({ measurements });
-try {
-const res = await fetch("/api/placeOrder", {
-method: "POST",
-headers: {
-"Content-Type": "application/json",
-},
-body: JSON.stringify(measurements),
-});
+  const handleSave = async () => {
+    console.log({ measurements });
+    try {
+      const res = await fetch("/api/place-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(measurements),
+      });
 
-const data = await res.json();
-setMeasurements({
-name: "",
-phone: "",
-neckWidth: "",
-shoulderWidth: "",
-sleevesWidth: "",
-bust: "",
-waist: "",
-hip: "",
-itemLength: "",
-sleevesFromShoulder: "",
-// sleevesFromNeck: "",
-arms: "",
-});
-console.log("Saved:", data);
-} catch (error) {
-console.error("Error saving measurements", error);
-}
-};
+      const data = await res.json();
+      setMeasurements({
+        name: "",
+        phone: "",
+        code: "",
+        neckWidth: "",
+        shoulderWidth: "",
+        sleevesWidth: "",
+        bust: "",
+        waist: "",
+        hip: "",
+        itemLength: "",
+        sleevesFromShoulder: "",
+        // sleevesFromNeck: "",
+        arms: "",
+      });
+      toast.success("Booking saved successfully 🎉");
+      console.log("Saved:", data);
+    } catch (error) {
+      toast.error("Failed to save booking ❌");
+      console.error("Error saving measurements", error);
+    }
+  };
 
-return (
-<div className="min-h-screen bg-slate-50 p-2 md:p-8 lg:p-12 overflow-auto">
-<div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 p-0 md:p-8 bg-slate-50 min-h-screen">
-<div className="w-full lg:flex-1 order-1 lg:order-1">
-<div className="bg-white p-0 sm:p-4 rounded-3xl shadow-xl border border-slate-200">
-<div className="relative overflow-x-auto pb-4">
-<div className="inline-block min-w-[500px] lg:w-full rounded-2xl border border-slate-100">
-<div className="relative mt-5">
-<Image
-src={abaya}
-alt="Abaya Measurement Guide"
-className="w-full h-auto object-contain"
-priority
-/>
+  return (
+    <div className="min-h-screen bg-slate-50 p-2 md:p-8 lg:p-12 overflow-auto">
+      <div className="flex flex-col lg:flex-row items-center lg:items-start justify-center gap-6 p-0 md:p-8 bg-slate-50 min-h-screen">
+        <div className="w-full lg:flex-1 order-1 lg:order-1">
+          <div className="bg-white p-0 sm:p-4 rounded-3xl shadow-xl border border-slate-200">
+            <div className="relative overflow-x-auto pb-4">
+              <div className="inline-block min-w-[500px] lg:w-full rounded-2xl border border-slate-100">
+                <div className="relative mt-5">
+                  <Image
+                    src={abaya}
+                    alt="Abaya Measurement Guide"
+                    className="w-full h-auto object-contain"
+                    priority
+                  />
 
-<MeasurementInput
-// label="Neck"
-name="neckWidth"
-value={measurements.neckWidth}
-onChange={handleChange}
-className="-top-[2%] sm:top[0%] md:top[5%] right-[58%]"
-/>
-<MeasurementInput
-// label="shoulder"
-name="shoulderWidth"
-value={measurements.shoulderWidth}
-onChange={handleChange}
-className="top-[8.5%] left-[10%]"
-/>
+                  <MeasurementInput
+                    // label="Neck"
+                    name="neckWidth"
+                    value={measurements.neckWidth}
+                    onChange={handleChange}
+                    className="-top-[2%] sm:top[0%] md:top[5%] right-[58%]"
+                  />
+                  <MeasurementInput
+                    // label="shoulder"
+                    name="shoulderWidth"
+                    value={measurements.shoulderWidth}
+                    onChange={handleChange}
+                    className="top-[8.5%] left-[10%]"
+                  />
 
-<MeasurementInput
-// label="Cuff"
-name="sleevesWidth"
-value={measurements.sleevesWidth}
-onChange={handleChange}
-className="top-[68%] left-[2%]"
-/>
-{/* <MeasurementInput
+                  <MeasurementInput
+                    // label="Cuff"
+                    name="sleevesWidth"
+                    value={measurements.sleevesWidth}
+                    onChange={handleChange}
+                    className="top-[68%] left-[2%]"
+                  />
+                  {/* <MeasurementInput
 label="Sleece Form Neck"
 name="sleevesFromNeck"
 value={measurements.sleevesFromNeck}
 onChange={handleChange}
 className="top-[8%] right-[25%]"
 /> */}
-<MeasurementInput
-// label="Arms"
-name="arms"
-value={measurements.arms}
-onChange={handleChange}
-className="top-[15%] right-[45%]"
-/>
-<MeasurementInput
-// label="Bust"
-name="bust"
-value={measurements.bust}
-onChange={handleChange}
-className="top-[28%] right-[39%]"
-/>
-<MeasurementInput
-// label="Waist"
-name="waist"
-value={measurements.waist}
-onChange={handleChange}
-className="top-[46%] right-[34%]"
-/>
-<MeasurementInput
-// label="Hip"
-name="hip"
-value={measurements.hip}
-onChange={handleChange}
-className="top-[60%] right-[33%]"
-/>
-<MeasurementInput
-// label="Sleeve"
-name="sleevesFromShoulder"
-value={measurements.sleevesFromShoulder}
-onChange={handleChange}
-className="top-[27%] left-[3%]"
-/>
-<MeasurementInput
-// label="Length"
-name="itemLength"
-value={measurements.itemLength}
-onChange={handleChange}
-className="bottom-[16%] left-[16%]"
-/>
+                  <MeasurementInput
+                    // label="Arms"
+                    name="arms"
+                    value={measurements.arms}
+                    onChange={handleChange}
+                    className="top-[15%] right-[45%]"
+                  />
+                  <MeasurementInput
+                    // label="Bust"
+                    name="bust"
+                    value={measurements.bust}
+                    onChange={handleChange}
+                    className="top-[28%] right-[39%]"
+                  />
+                  <MeasurementInput
+                    // label="Waist"
+                    name="waist"
+                    value={measurements.waist}
+                    onChange={handleChange}
+                    className="top-[46%] right-[34%]"
+                  />
+                  <MeasurementInput
+                    // label="Hip"
+                    name="hip"
+                    value={measurements.hip}
+                    onChange={handleChange}
+                    className="top-[60%] right-[33%]"
+                  />
+                  <MeasurementInput
+                    // label="Sleeve"
+                    name="sleevesFromShoulder"
+                    value={measurements.sleevesFromShoulder}
+                    onChange={handleChange}
+                    className="top-[27%] left-[3%]"
+                  />
+                  <MeasurementInput
+                    // label="Length"
+                    name="itemLength"
+                    value={measurements.itemLength}
+                    onChange={handleChange}
+                    className="bottom-[16%] left-[16%]"
+                  />
 
-<Image
-src={logo}
-alt="logo"
-// className="w-full h-auto object-contain"
-className=" absolute rounded-4xl bottom-[15%] right-[45%] sm:right-[43%] h-[80px] w-[80px] sm:h-[100px] sm:w-[100px]"
-priority
-/>
-</div>
-</div>
-</div>
+                  <Image
+                    src={logo}
+                    alt="logo"
+                    // className="w-full h-auto object-contain"
+                    className=" absolute rounded-full bottom-[15%] right-[45%] sm:right-[45%] h-[80px] w-[80px] sm:h-[100px] sm:w-[100px] opacity-85"
+                    priority
+                  />
+                </div>
+              </div>
+            </div>
 
-<p className="text-center text-[10px] text-slate-400 mt-1 lg:hidden italic">
-Swipe left ↔ right to view full image
-</p>
-</div>
-</div>
+            <p className="text-center text-[10px] text-slate-400 mt-1 lg:hidden italic">
+              Swipe left ↔ right to view full image
+            </p>
+          </div>
+        </div>
 
-{/* RIGHT COLUMN: The Data Panel */}
-<div className="w-full lg:w-[400px] flex flex-col gap-6 order-1 lg:order-2 sticky lg:top-8 overflow-hidden">
-<div className="bg-white p-4 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
-<div className="flex items-center justify-between mb-2">
-<div className="flex items-center gap-2">
-<div className="p-2 bg-blue-50 rounded-lg">
-<Ruler className="w-5 h-5 text-blue-600" />
-</div>
-<h2 className="text-xl font-bold text-slate-800 tracking-tight">
-Measurement Details
-</h2>
-</div>
+        {/* RIGHT COLUMN: The Data Panel */}
+        <div className="w-full lg:w-[400px] flex flex-col gap-6 order-1 lg:order-2 sticky lg:top-8 overflow-hidden">
+          <div className="bg-white p-4 sm:p-6 rounded-3xl shadow-sm border border-slate-200">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <div className="p-2 bg-blue-50 rounded-lg">
+                  <Ruler className="w-5 h-5 text-blue-600" />
+                </div>
+                <h2 className="text-xl font-bold text-slate-800 tracking-tight">
+                  Measurement Details
+                </h2>
+              </div>
 
-<Button
-variant="ghost"
-size="sm"
-onClick={() =>
-setMeasurements({
-name: "",
-phone: "",
-neckWidth: "",
-shoulderWidth: "",
-sleevesWidth: "",
-bust: "",
-waist: "",
-hip: "",
-itemLength: "",
-sleevesFromShoulder: "",
-// sleevesFromNeck: "",
-arms: "",
-})
-}
-className="h-8 px-2 text-slate-400 hover:text-red-500 transition-colors"
->
-<RotateCcw className="w-3.5 h-3.5 mr-1" />
-<span className="text-[10px] font-bold uppercase tracking-wider">
-Reset
-</span>
-</Button>
-</div>
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() =>
+                  setMeasurements({
+                    name: "",
+                    phone: "",
+                    code: "",
+                    neckWidth: "",
+                    shoulderWidth: "",
+                    sleevesWidth: "",
+                    bust: "",
+                    waist: "",
+                    hip: "",
+                    itemLength: "",
+                    sleevesFromShoulder: "",
+                    // sleevesFromNeck: "",
+                    arms: "",
+                  })
+                }
+                className="h-8 px-2 text-slate-400 hover:text-red-500 transition-colors"
+              >
+                <RotateCcw className="w-3.5 h-3.5 mr-1" />
+                <span className="text-[10px] font-bold uppercase tracking-wider">
+                  Reset
+                </span>
+              </Button>
+            </div>
 
-{/* Customer Info */}
-<div className="space-y-2 mb-4">
-<h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400">
-Customer Information
-</h3>
+            {/* Customer Info */}
+            <div className="space-y-2 mb-4">
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                Customer Information
+              </h3>
 
-<Input
-type="text"
-name="name"
-placeholder="Full Name"
-value={measurements.name}
-onChange={handleChange}
-/>
+              <Input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                value={measurements.name}
+                onChange={handleChange}
+              />
 
-<Input
-type="tel"
-name="phone"
-placeholder="Phone Number"
-value={measurements.phone}
-onChange={handleChange}
-/>
-</div>
+              <Input
+                type="tel"
+                name="phone"
+                placeholder="Phone Number"
+                value={measurements.phone}
+                onChange={handleChange}
+              />
+              <div className="flex gap-2">
+                <div className="flex items-center justify-between bg-slate-50 border rounded-lg px-4 py-1 whitespace-nowrap">
+                  <span className="text-sm text-blue-500">Price : </span>
+                  <span className="text-lg font-bold text-blue-600">
+                    45 KWD
+                  </span>
+                </div>
 
-<div className="mb-6">
-<h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
-Size Summary (inch)
-</h3>
+                <Input
+                  type="text"
+                  name="code"
+                  placeholder="Code"
+                  value={measurements.code}
+                  onChange={handleChange}
+                  className="flex-1"
+                />
+              </div>
+            </div>
 
-<div className="grid grid-cols-2 gap-x-6 gap-y-2 sm:gap-y-3 max-h-[40vh] lg:max-h-none overflow-y-auto pr-2">
-{Object.entries(measurements).map(([key, value]) => (
-<div
-key={key}
-className="group border-b border-slate-50 pb-1 transition-colors hover:border-blue-100"
->
-<Label className="text-[9px] text-slate-400 uppercase tracking-widest font-bold group-hover:text-blue-500 transition-colors">
-{key.replace(/([A-Z])/g, " $1").trim()}
-</Label>
-<div className="flex items-baseline gap-1">
-<span className="text-lg font-semibold text-slate-800">
-{value || "0"}
-</span>
-<span className="text-xs text-slate-400 font-medium">
-in
-</span>
-</div>
-</div>
-))}
-</div>
-</div>
+            <div className="mb-6">
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-3">
+                Size Summary (inch)
+              </h3>
 
-<Button
-onClick={handleSave}
-className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-6 flex gap-2 shadow-lg shadow-blue-100 transition-all active:scale-95"
->
-<CheckCircle2 className="w-5 h-5" />
-Confirm Measurements
-</Button>
-</div>
-</div>
-</div>
-</div>
-);
+              <div className="grid grid-cols-2 gap-x-6 gap-y-2 sm:gap-y-3 max-h-[40vh] lg:max-h-none overflow-y-auto pr-2">
+                {Object.entries(measurements).map(([key, value]) => (
+                  <div
+                    key={key}
+                    className="group border-b border-slate-50 pb-1 transition-colors hover:border-blue-100"
+                  >
+                    <Label className="text-[9px] text-slate-400 uppercase tracking-widest font-bold group-hover:text-blue-500 transition-colors">
+                      {key.replace(/([A-Z])/g, " $1").trim()}
+                    </Label>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-lg font-semibold text-slate-800">
+                        {value || "0"}
+                      </span>
+                      <span className="text-xs text-slate-400 font-medium">
+                        in
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <Button
+              onClick={handleSave}
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-6 flex gap-2 shadow-lg shadow-blue-100 transition-all active:scale-95"
+            >
+              <CheckCircle2 className="w-5 h-5" />
+              Confirm Measurements
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default AbayaMeasurementForm;
